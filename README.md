@@ -14,7 +14,7 @@ The TCGA datasets are publicly available and can be obtained from the UCSC Xena 
 
 # Data Preprocessing
 
-#### cd Federated-Transfer-MOSAHit/Data_preprocessing
+#### cd CoFormerSurv/Data_preprocessing
 
 The python program (extract_RNASeq_expression.py) summarized the gene expression of patients with the same type of cancer into a csv file. 
 
@@ -38,8 +38,8 @@ The python program (matched_patients.py) only kept the patients with matched gen
 
 # Run the main routine
 
-#### git clone https://github.com/LiminLi-xjtu/Federated-Transfer-MOSAHit.git
+#### git clone https://github.com/LiminLi-xjtu/CoFormerSurv.git
 
-#### cd Federated-Transfer-MOSAHit
+#### cd CoFormerSurv
 
-#### python DPFL.py
+#### python main.py
