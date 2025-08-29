@@ -48,7 +48,7 @@ path.append("/home/datasets/TCGA/DNA/TCGA-THYM")
 path.append("/home/datasets/TCGA/DNA/TCGA-UCEC")
 path.append("/home/datasets/TCGA/DNA/TCGA-UCS")
 path.append("/home/datasets/TCGA/DNA/TCGA-UVM")
-target_path = 'F:\\Pycharm_Project\\FGCNSurv\\Datasets_and_Preprocessing\\data\\miRNA_source_to_csv\\'
+target_path = './Datasets_and_Preprocessing/data/miRNA_source_to_csv/'
 
 for type_path in path:
     label = type_path.split('/')[5]
@@ -121,3 +121,4 @@ for type_path in path:
     # print(count)
     result = pd.merge(gene_dataframe, meta_dataframe, how="inner", on=['file_id', 'file_name'])
     result.to_csv(target_path + label + ".csv")
+
