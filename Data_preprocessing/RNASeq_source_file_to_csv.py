@@ -59,7 +59,7 @@ path.append("/home/datasets/TCGA/RNA-Seq/TCGA-UCEC")
 path.append("/home/datasets/TCGA/RNA-Seq/TCGA-UCS")
 path.append("/home/datasets/TCGA/RNA-Seq/TCGA-UVM")
 
-target_path = 'F:\\Pycharm_Project\\FGCNSurv\\Datasets_and_Preprocessing\\data\\RNASeq_source_to_csv\\'
+target_path = './Datasets_and_Preprocessing/data/RNASeq_source_to_csv/'
 
 for type_path in path:
     label = type_path.split('/')[5]
@@ -139,38 +139,3 @@ for type_path in path:
     result = pd.merge(gene_dataframe, meta_dataframe, how="inner", on=['file_id', 'file_name'])
     result.to_csv(target_path + label + ".csv")
 
-
-# file_write_name.close()
-
-# import json
-#
-#
-# def main():
-#     """
-#     main function
-#     :return:
-#     """
-#     my_file = open(
-#         'F:\TCGA\Gene-Expression\TCGA-ACC\harmonized\Transcriptome_Profiling\Gene_Expression_Quantification\metadata.cart.2021-10-09.json',
-#         encoding='utf-8')
-#     my_result = open('result.txt', 'w')
-#     json_data = json.load(my_file)
-#     # print(json_data)
-#     for list_data in json_data:
-#         # print(list_data)
-#         print(list_data['file_name'])
-#         print(list_data['file_id'])
-#         print(list_data['associated_entities'][0]['entity_submitter_id'])
-#
-#         # print(list_data['associated_entities'][0]['entity_id'])
-#         # my_result.write(list_data['associated_entities'][0]['entity_id'] \
-#         #                 + '\t' \
-#         #                 + list_data['associated_entities'][0]['entity_submitter_id'] \
-#         #                 + '\n')
-#
-#     my_result.close()
-#     my_file.close()
-#
-#
-# if __name__ == '__main__':
-#     main()
