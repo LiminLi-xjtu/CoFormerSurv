@@ -101,8 +101,8 @@ if __name__ == '__main__':
     train_lr = 2e-4
 
 
-    # base_path = "F:\\Pycharm_Project\\Cooperative_Transformer_Survival_Analysis_With_Multi_Omics\\Datasets\\Cancer\\"
-    base_path = "/share/home/4120107034/Cooperative_Transformer_Survival_Analysis_With_Multi_Omics/Datasets/Cancer/"
+
+    base_path = "Cooperative_Transformer_Survival_Analysis_With_Multi_Omics/Datasets/Cancer/"
 
     standard_scaler = preprocessing.StandardScaler()
 
@@ -334,24 +334,6 @@ if __name__ == '__main__':
         Target_W_Trans = torch.matmul(Target_W_Temp , Target_W_assist)
         Target_W_Trans[Target_W_Trans > 0] = 1
 
-        # DNA_tensor = torch.cat((DNA_train_tensor, DNA_val_tensor), axis=0)
-        # DNA_tensor1 = torch.unsqueeze(DNA_tensor, 1)  # N*1*d
-        # DNA_tensor2 = torch.unsqueeze(DNA_tensor, 0)  # 1*N*d
-        # W_DNA = ((DNA_tensor1 - DNA_tensor2) ** 2).sum(2)  # N*N*d -> N*N
-        # W_DNA_temp = W_DNA.reshape(-1, 1)
-        # distance = torch.median(W_DNA_temp, 0)
-        # # print(distance[0])
-        # W_DNA = torch.exp(-W_DNA/distance[0])
-        # if k > 0:
-        #     topk, indices = torch.topk(W_DNA, k)
-        #     # print(indices)
-        #     mask = torch.zeros_like(W_DNA)
-        #     mask = mask.scatter(1, indices, 1)
-        #     # mask = ((mask + torch.t(mask)) > 0).type(torch.float32)  # union, kNN graph
-        #     # mask = ((mask > 0) & (torch.t(mask) > 0)).type(torch.float32)  # intersection, kNN graph
-        #     W_DNA = mask
-        # # W_miRNA = W_miRNA / W_miRNA .sum(0)
-        # # print(W_DNA)
         model = Multi_Omics_Cooperative_Transformer(p_RNASeq=0.5, p_miRNA=0.5, p_graph=0)
 
         optimizer = torch.optim.Adam([{'params': model.parameters()}, ], lr=train_lr, weight_decay=5e-4)
@@ -441,75 +423,3 @@ if __name__ == '__main__':
         f.writelines("max cind std:" + str(np.std(np.array(max_cind_list))) + '\n')
         f.writelines("max auc ave:" + str(np.mean(np.array(max_auc_list))) + '\n')
         f.writelines("max auc std:" + str(np.std(np.array(max_auc_list))) + '\n')
-
-    # COAD_PATH = base_path + "/COAD"
-    # COAD_RNASeq_feature = np.loadtxt(fname=COAD_PATH + "/RNASeq.csv", delimiter=",", skiprows=1)
-    # COAD_miRNA_feature = np.loadtxt(fname=COAD_PATH + "/miRNA.csv", delimiter=",", skiprows=1)
-    # COAD_ytime = np.loadtxt(fname=COAD_PATH + "/ytime.csv", delimiter=",", skiprows=1)
-    # COAD_ystatus = np.loadtxt(fname=COAD_PATH + "/ystatus.csv", delimiter=",", skiprows=1)
-    # COAD_RNASeq_feature = standard_scaler.fit_transform(COAD_RNASeq_feature)
-    # COAD_miRNA_feature = standard_scaler.fit_transform(COAD_miRNA_feature)
-    #
-    # BLCA_PATH = base_path + "/BLCA"
-    # BLCA_RNASeq_feature = np.loadtxt(fname=BLCA_PATH + "/RNASeq.csv", delimiter=",", skiprows=1)
-    # BLCA_miRNA_feature = np.loadtxt(fname=BLCA_PATH + "/miRNA.csv", delimiter=",", skiprows=1)
-    # BLCA_ytime = np.loadtxt(fname=BLCA_PATH + "/ytime.csv", delimiter=",", skiprows=1)
-    # BLCA_ystatus = np.loadtxt(fname=BLCA_PATH + "/ystatus.csv", delimiter=",", skiprows=1)
-    # BLCA_RNASeq_feature = standard_scaler.fit_transform(BLCA_RNASeq_feature)
-    # BLCA_miRNA_feature = standard_scaler.fit_transform(BLCA_miRNA_feature)
-    #
-    # KIRC_PATH = base_path + "/KIRC"
-    # KIRC_RNASeq_feature = np.loadtxt(fname=KIRC_PATH + "/RNASeq.csv", delimiter=",", skiprows=1)
-    # KIRC_miRNA_feature = np.loadtxt(fname=KIRC_PATH + "/miRNA.csv", delimiter=",", skiprows=1)
-    # KIRC_ytime = np.loadtxt(fname=KIRC_PATH + "/ytime.csv", delimiter=",", skiprows=1)
-    # KIRC_ystatus = np.loadtxt(fname=KIRC_PATH + "/ystatus.csv", delimiter=",", skiprows=1)
-    # KIRC_RNASeq_feature = standard_scaler.fit_transform(KIRC_RNASeq_feature)
-    # KIRC_miRNA_feature = standard_scaler.fit_transform(KIRC_miRNA_feature)
-    #
-    # LUAD_PATH = base_path + "/LUAD"
-    # LUAD_RNASeq_feature = np.loadtxt(fname=LUAD_PATH + "/RNASeq.csv", delimiter=",", skiprows=1)
-    # LUAD_miRNA_feature = np.loadtxt(fname=LUAD_PATH + "/miRNA.csv", delimiter=",", skiprows=1)
-    # LUAD_ytime = np.loadtxt(fname=LUAD_PATH + "/ytime.csv", delimiter=",", skiprows=1)
-    # LUAD_ystatus = np.loadtxt(fname=LUAD_PATH + "/ystatus.csv", delimiter=",", skiprows=1)
-    # LUAD_RNASeq_feature = standard_scaler.fit_transform(LUAD_RNASeq_feature)
-    # LUAD_miRNA_feature = standard_scaler.fit_transform(LUAD_miRNA_feature)
-    #
-    # LUSC_PATH = base_path + "/LUSC"
-    # LUSC_RNASeq_feature = np.loadtxt(fname=LUSC_PATH + "/RNASeq.csv", delimiter=",", skiprows=1)
-    # LUSC_miRNA_feature = np.loadtxt(fname=LUSC_PATH + "/miRNA.csv", delimiter=",", skiprows=1)
-    # LUSC_ytime = np.loadtxt(fname=LUSC_PATH + "/ytime.csv", delimiter=",", skiprows=1)
-    # LUSC_ystatus = np.loadtxt(fname=LUSC_PATH + "/ystatus.csv", delimiter=",", skiprows=1)
-    # LUSC_RNASeq_feature = standard_scaler.fit_transform(LUSC_RNASeq_feature)
-    # LUSC_miRNA_feature = standard_scaler.fit_transform(LUSC_miRNA_feature)
-    #
-    # HNSC_PATH = base_path + "/HNSC"
-    # HNSC_RNASeq_feature = np.loadtxt(fname=HNSC_PATH + "/RNASeq.csv", delimiter=",", skiprows=1)
-    # HNSC_miRNA_feature = np.loadtxt(fname=HNSC_PATH + "/miRNA.csv", delimiter=",", skiprows=1)
-    # HNSC_ytime = np.loadtxt(fname=HNSC_PATH + "/ytime.csv", delimiter=",", skiprows=1)
-    # HNSC_ystatus = np.loadtxt(fname=HNSC_PATH + "/ystatus.csv", delimiter=",", skiprows=1)
-    # HNSC_RNASeq_feature = standard_scaler.fit_transform(HNSC_RNASeq_feature)
-    # HNSC_miRNA_feature = standard_scaler.fit_transform(HNSC_miRNA_feature)
-    #
-    # LIHC_PATH = base_path + "/LIHC"
-    # LIHC_RNASeq_feature = np.loadtxt(fname=LIHC_PATH + "/RNASeq.csv", delimiter=",", skiprows=1)
-    # LIHC_miRNA_feature = np.loadtxt(fname=LIHC_PATH + "/miRNA.csv", delimiter=",", skiprows=1)
-    # LIHC_ytime = np.loadtxt(fname=LIHC_PATH + "/ytime.csv", delimiter=",", skiprows=1)
-    # LIHC_ystatus = np.loadtxt(fname=LIHC_PATH + "/ystatus.csv", delimiter=",", skiprows=1)
-    # LIHC_RNASeq_feature = standard_scaler.fit_transform(LIHC_RNASeq_feature)
-    # LIHC_miRNA_feature = standard_scaler.fit_transform(LIHC_miRNA_feature)
-    #
-    # OV_PATH = base_path + "/OV"
-    # OV_RNASeq_feature = np.loadtxt(fname=OV_PATH + "/RNASeq.csv", delimiter=",", skiprows=1)
-    # OV_miRNA_feature = np.loadtxt(fname=OV_PATH + "/miRNA.csv", delimiter=",", skiprows=1)
-    # OV_ytime = np.loadtxt(fname=OV_PATH + "/ytime.csv", delimiter=",", skiprows=1)
-    # OV_ystatus = np.loadtxt(fname=OV_PATH + "/ystatus.csv", delimiter=",", skiprows=1)
-    # OV_RNASeq_feature = standard_scaler.fit_transform(OV_RNASeq_feature)
-    # OV_miRNA_feature = standard_scaler.fit_transform(OV_miRNA_feature)
-    #
-    # ESCA_PATH = base_path + "/ESCA"
-    # ESCA_RNASeq_feature = np.loadtxt(fname=ESCA_PATH + "/RNASeq.csv", delimiter=",", skiprows=1)
-    # ESCA_miRNA_feature = np.loadtxt(fname=ESCA_PATH + "/miRNA.csv", delimiter=",", skiprows=1)
-    # ESCA_ytime = np.loadtxt(fname=ESCA_PATH + "/ytime.csv", delimiter=",", skiprows=1)
-    # ESCA_ystatus = np.loadtxt(fname=ESCA_PATH + "/ystatus.csv", delimiter=",", skiprows=1)
-    # ESCA_RNASeq_feature = standard_scaler.fit_transform(ESCA_RNASeq_feature)
-    # ESCA_miRNA_feature = standard_scaler.fit_transform(ESCA_miRNA_feature)
