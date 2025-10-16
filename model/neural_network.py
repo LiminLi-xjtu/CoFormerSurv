@@ -59,13 +59,6 @@ class Multi_Omics_Cooperative_Transformer(nn.Module):
 
         # 求注意力分数
         attention_weights = torch.matmul(query_1, query_1.transpose(-2, -1)) / (100 ** 0.5)
-        # attention_weights = torch.matmul(query_1, key_1.transpose(-2, -1)) / (100 ** 0.5)
-        # 对注意力分数归一化，最后一个维度做
-        # if torch.isnan(attention_weights).any():
-        #     print("W_graph_1_temp contains NaN values.")
-        # if torch.isinf(attention_weights).any() or torch.isinf(torch.exp(attention_weights)).any():
-        #     print("One of the input tensors contains infinite values.")
-        # print(attention_weights)
         if torch.isinf(attention_weights).any():
             print("One of the input tensors contains infinite values.")
         if torch.isinf(torch.exp(attention_weights)).any():
@@ -75,20 +68,9 @@ class Multi_Omics_Cooperative_Transformer(nn.Module):
         S_norm = S 
         attention_weights_1 = torch.exp(attention_weights ) * S_Trans * S_norm/ torch.sum(torch.exp(attention_weights)* S_norm *
                                                                                  S_Trans, dim=-1).reshape(-1, 1)
-        # attention_weights = nn.functional.softmax(attention_weights, dim=-1)
-        # 将归一化后的权重与value相乘
-
-        # attention_weights_2 = (attention_weights * S_Trans * S_norm) / torch.sum(attention_weights * S_Trans * S_norm, dim=-1).reshape(-1, 1)
-        # attention_weights_2 = (attention_weights_1 * S_norm) / torch.sum(attention_weights_1 * S_norm,
-        #                                                                  dim=-1).reshape(-1, 1)
-        # attention_weights_2 = (attention_weights_1 + S_Trans * S_norm) 
         attention_weights_2 = attention_weights_1 
         attended_values = torch.matmul(torch.squeeze(attention_weights_2),
                                        F.normalize(torch.squeeze(value_1)))
-        # attended_values = torch.cat((torch.squeeze(torch.matmul(S_norm, value_1)), self.Graph_Wq_value(fused_feature)), 1)
-        # attended_values = torch.cat((F.normalize(torch.squeeze(torch.matmul(attention_weights_2, value_1))), F.normalize(self.Graph_Wq_value(fused_feature))), 1)
-        # attended_values = torch.cat((torch.squeeze(F.normalize(torch.matmul(S_norm, value_1))), F.normalize(self.Graph_Wq_value(fused_feature))), 1)
-        # attended_values = torch.squeeze(torch.matmul(S, value_1))
         return self.bm_full(self.Graph_BN(attended_values))
 
     def get_Transformer_feature(self, gene, miRNA):
