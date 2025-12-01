@@ -116,21 +116,6 @@ if __name__ == '__main__':
     Target_RNASeq_feature = standard_scaler.fit_transform(Target_RNASeq_feature)
     Target_miRNA_feature = standard_scaler.fit_transform(Target_miRNA_feature)
 
-    row_num, col_num = Target_RNASeq_feature.shape
-    for j_col in range(col_num):
-        percentiles = np.array([30, 70])
-        percentiles_val = np.array([15, 50, 85])
-        ptiles_vers = np.percentile(Target_RNASeq_feature[:, j_col], percentiles)
-        percentiles_val_vers = np.percentile(Target_RNASeq_feature[:, j_col], percentiles_val)
-        for i_row in range(row_num):
-
-            if Target_RNASeq_feature[i_row, j_col] < ptiles_vers[0]:
-                Target_RNASeq_feature[i_row, j_col] = percentiles_val_vers[0]
-            if Target_RNASeq_feature[i_row, j_col] >= ptiles_vers[1]:
-                Target_RNASeq_feature[i_row, j_col] = percentiles_val_vers[2]
-            if ptiles_vers[0] <= Target_RNASeq_feature[i_row, j_col] < ptiles_vers[1]:
-                Target_RNASeq_feature[i_row, j_col] = percentiles_val_vers[1]
-
     row_num, col_num = Target_miRNA_feature.shape
     for j_col in range(col_num):
         percentiles = np.array([10, 20, 30, 40, 50, 60, 70, 80, 90])
