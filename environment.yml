@@ -97,4 +97,3 @@ dependencies:
       - snfpy==0.2.2
       - urllib3==2.0.3
       - wrapt==1.14.1
-prefix: /share/home/4120107034/.conda/envs/survival_analysis
